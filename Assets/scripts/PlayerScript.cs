@@ -50,11 +50,11 @@ public class PlayerScript : MonoBehaviour
         ).x;
 
         var topBorder = Camera.main.ViewportToWorldPoint(
-            new Vector3(0, 0, dist)
+            new Vector3(0, 0.05f, dist)
         ).y;
 
         var bottomBorder = Camera.main.ViewportToWorldPoint(
-            new Vector3(0, 1, dist)
+            new Vector3(0, 0.7f, dist)
         ).y;
 
         transform.position = new Vector3(

@@ -58,11 +58,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\FramesPerSecond\FramesPerSecond.cs" />
      <Compile Include="Assets\scripts\EnemyScript.cs" />
      <Compile Include="Assets\scripts\FireScript.cs" />
      <Compile Include="Assets\scripts\HPScript.cs" />
      <Compile Include="Assets\scripts\MoveScript.cs" />
+     <Compile Include="Assets\scripts\ParallaxScript.cs" />
      <Compile Include="Assets\scripts\PlayerScript.cs" />
+     <Compile Include="Assets\scripts\ScrollScript.cs" />
      <Compile Include="Assets\scripts\ShotScript.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>C:/Users/Edi/Documents/GDD_I1/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

@@ -39,6 +39,29 @@ public class PlayerScript : MonoBehaviour
             }
         }
         
+        var dist = (transform.position - Camera.main.transform.position).z;
+
+        var leftBorder = Camera.main.ViewportToWorldPoint(
+            new Vector3(0, 0, dist)
+        ).x;
+
+        var rightBorder = Camera.main.ViewportToWorldPoint(
+            new Vector3(1, 0, dist)
+        ).x;
+
+        var topBorder = Camera.main.ViewportToWorldPoint(
+            new Vector3(0, 0, dist)
+        ).y;
+
+        var bottomBorder = Camera.main.ViewportToWorldPoint(
+            new Vector3(0, 1, dist)
+        ).y;
+
+        transform.position = new Vector3(
+            Mathf.Clamp(transform.position.x, leftBorder, rightBorder),
+            Mathf.Clamp(transform.position.y, topBorder, bottomBorder),
+            transform.position.z
+        );
     }
 
     private void FixedUpdate()
@@ -49,5 +72,31 @@ public class PlayerScript : MonoBehaviour
         }
         
         _rigidbody2D.velocity = _movement;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        var damagePlayer = false;
+        
+        var enemy = other.gameObject.GetComponent<EnemyScript>();
+        if (enemy != null)
+        {
+            var enemyHealth = enemy.GetComponent<HPScript>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.Damage(enemyHealth.hitPoints);
+            }
+
+            damagePlayer = true;
+        }
+
+        if (damagePlayer)
+        {
+            var playerHealth = this.GetComponent<HPScript>();
+            if (playerHealth != null)
+            {
+                playerHealth.Damage(1);
+            }
+        }
     }
 }

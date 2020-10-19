@@ -9,11 +9,11 @@ public class EnemyScript : MonoBehaviour
     private MoveScript _moveScript;
     private Collider2D _colliderComponent;
     private SpriteRenderer _rendererComponent;
-    private FireScript _fireScript;
+    private FireScript[] _fireScripts;
     
     private void Awake()
     {
-        _fireScript = GetComponentInChildren<FireScript>();
+        _fireScripts = GetComponentsInChildren<FireScript>();
         _moveScript = GetComponent<MoveScript>();
         _colliderComponent = GetComponent<Collider2D>();
         _rendererComponent = GetComponent<SpriteRenderer>();
@@ -24,7 +24,10 @@ public class EnemyScript : MonoBehaviour
         _hasSpawn = false;
         _colliderComponent.enabled = false;
         _moveScript.enabled = false;
-        _fireScript.enabled = false;
+        foreach (var script in _fireScripts)
+        {
+            script.enabled = false;
+        }
     }
 
     void Update()
@@ -38,9 +41,12 @@ public class EnemyScript : MonoBehaviour
         }
         else
         {
-            if (_fireScript != null && _fireScript.enabled && _fireScript.CanFire)
+            foreach (var script in _fireScripts)
             {
-                _fireScript.Fire(true);
+                if (script != null && script.enabled && script.CanFire)
+                {
+                    script.Fire(true);
+                }
             }
 
             if (!_rendererComponent.isVisible)
@@ -56,6 +62,9 @@ public class EnemyScript : MonoBehaviour
         _hasSpawn = true;
         _colliderComponent.enabled = true;
         _moveScript.enabled = true;
-        _fireScript.enabled = true;
+        foreach (var script in _fireScripts)
+        {
+            script.enabled = true;
+        }
     }
 }

@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
+        HealthBarScript.SetHealthBarValue(1);
     }
 
     // Update is called once per frame
@@ -96,6 +97,7 @@ public class PlayerScript : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.Damage(1);
+                HealthBarScript.SetHealthBarValue(HealthBarScript.GetHealthBarValue() - 0.1f);
             }
         }
     }

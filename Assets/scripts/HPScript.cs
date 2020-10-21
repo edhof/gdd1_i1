@@ -23,8 +23,14 @@ public class HPScript : MonoBehaviour
     public void Damage(int damage)
     {
         hitPoints -= damage;
-        if(hitPoints <= 0)
+        if (hitPoints <= 0)
+        {
+            if (isEnemy)
+            {
+                ParticlesScript.Instance.StartHearts(transform.position);
+            }
             Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -36,7 +42,15 @@ public class HPScript : MonoBehaviour
             if (shot.belongsToEnemy != isEnemy)
             {
                 Damage(shot.damage);
-
+                if (!isEnemy)
+                {
+                    HealthBarScript.SetHealthBarValue(HealthBarScript.GetHealthBarValue() - 0.1f);
+                }
+                else
+                {
+                    ScoreHandler.AddToScore(100);
+                }
+                
                 // Destroy the shot
                 Destroy(shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
             }

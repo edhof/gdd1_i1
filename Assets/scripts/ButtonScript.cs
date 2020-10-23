@@ -7,6 +7,7 @@ public class ButtonScript : MonoBehaviour
 {
     public void GoToNextScene(string sceneName)
     {
+        ApplicationModel.Score = 0;
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 }
